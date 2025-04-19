@@ -1,12 +1,12 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { Grid2, Typography, FormControl, TextField, Link } from '@mui/material';
+import { Grid, Typography, FormControl, TextField, Link } from '@mui/material';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material';
-import ElumleLogo from '../assets/Logo';
+import ElumleLogo from '../../assets/Logo';
 import { Link as RouterLink } from 'react-router-dom';
-
+import Navbar from '../MainPage/Navbar';
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -29,7 +29,8 @@ const Card = styled(MuiCard)(({ theme }) => ({
 const Signup = () => {
   return (
     <>
-      <Grid2 sx={{ fontFamily: 'sans-serif' }}>
+      <Grid sx={{ fontFamily: 'sans-serif' }}>
+        <Navbar />
         <Card variant="outlined">
           <Typography component="h1" variant="h5" sx={{ marginBottom: 2 }}>
             <ElumleLogo />
@@ -78,7 +79,7 @@ const Signup = () => {
             </span>
           </Typography>
         </Card>
-      </Grid2>
+      </Grid>
     </>
   );
 };

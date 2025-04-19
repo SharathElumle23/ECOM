@@ -24,6 +24,9 @@ export default [
       },
       globals: {
         React: 'readonly',
+        document: 'readonly',
+        window: 'readonly',
+        console: 'readonly',
       },
     },
     plugins: {
