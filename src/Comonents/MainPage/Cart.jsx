@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
-import { Box, Typography, IconButton, Button, Divider, Grid, Paper } from '@mui/material';
+import {
+  Box,
+  Typography,
+  IconButton,
+  Button,
+  Divider,
+  Grid,
+  Paper,
+  Alert,
+  Tooltip,
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Navbar from './Navbar';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromCart } from '../../redux/cartSlice';
 const CartSection = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      title: 'Cool Shirt',
-      price: 49.99,
-      quantity: 1,
-      image: '/assets/shirt3D.jpg',
-    },
-    {
-      id: 2,
-      title: 'Stylish Bag',
-      price: 89.99,
-      quantity: 2,
-      image: '/assets/Bag1.jpg',
-    },
-  ]);
-
+  const fetchdata = useSelector(state => state.cart.cartItems);
+  const fetchLogin = useSelector(state => state.login);
+  const [cartItems, setCartItems] = useState(fetchdata);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onUpdateQuantity = (id, newQty) => {
     setCartItems(prev =>
       prev.map(item => (item.id === id ? { ...item, quantity: Math.max(newQty, 1) } : item))
@@ -29,6 +30,7 @@ const CartSection = () => {
   };
 
   const handleRemove = id => {
+    dispatch(removeFromCart(id));
     setCartItems(prev => prev.filter(item => item.id !== id));
   };
   const getTotal = () =>
@@ -88,12 +90,42 @@ const CartSection = () => {
             ))}
 
             <Divider sx={{ my: 2 }} />
-
             <Box sx={{ textAlign: 'right' }}>
               <Typography variant="h6">Total: ${getTotal()}</Typography>
-              <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-                Proceed to Checkout
-              </Button>
+              {fetchLogin.isLoggedIn ? (
+                <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+                  Proceed to Checkout
+                </Button>
+              ) : (
+                <Tooltip
+                  title="Please login to proceed to checkout your order"
+                  arrow
+                  componentsProps={{
+                    tooltip: {
+                      sx: {
+                        backgroundColor: 'white',
+                        color: 'red',
+                        border: '1px solid red',
+                        fontWeight: 'bold',
+                      },
+                    },
+                    arrow: {
+                      sx: {
+                        color: 'white', // Arrow color matches tooltip background
+                      },
+                    },
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ mt: 2 }}
+                    onClick={() => navigate('/login')}
+                  >
+                    Login
+                  </Button>
+                </Tooltip>
+              )}
             </Box>
           </>
         )}

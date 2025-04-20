@@ -3,12 +3,15 @@ import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Box } from '@m
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import ElumleLogo from '../../assets/Logo';
-
+import { useSelector } from 'react-redux';
 const Navbar = () => {
+  const fetchdata = useSelector(state => state.cart.cartItems);
+  const fetchCount = fetchdata.length;
+
   const navData = [
     { name: 'Home', to: '/' },
     { name: 'Category', to: '/category' },
-    { name: 'Cart', to: '/cart' },
+    { name: fetchCount > 0 ? `Cart (${fetchCount})` : 'Cart', to: '/cart' },
     { name: 'Login', to: '/login' },
   ];
 

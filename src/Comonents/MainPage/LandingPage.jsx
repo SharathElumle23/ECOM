@@ -12,6 +12,8 @@ import {
 import { fetchProductData } from '../../apis/fetch';
 import Navbar from './Navbar';
 import HeroSlider from './HeroSection';
+import { useSelector } from 'react-redux';
+import AddToCartControls from './AddtoCart';
 const LandingPage = () => {
   const [products, setProducts] = useState([]);
   const handleData = async () => {
@@ -35,6 +37,8 @@ const LandingPage = () => {
     }
     return stars.join(' ');
   };
+  const fetchdata = useSelector(state => state.cart.cartItems);
+  console.log(fetchdata);
   return (
     <>
       <Navbar />
@@ -102,9 +106,7 @@ const LandingPage = () => {
                     {getStarRating(product.rating.rate)} ({product.rating.count})
                   </Typography>
                 </CardContent>
-                <Button variant="outlined" color="primary" sx={{ marginTop: '1rem' }}>
-                  Add to Cart
-                </Button>
+                <AddToCartControls product={product} />
               </Card>
             </Grid>
           ))}

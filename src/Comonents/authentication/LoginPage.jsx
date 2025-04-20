@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Grid, Typography, FormControl, TextField, Link } from '@mui/material';
@@ -7,6 +7,9 @@ import { styled } from '@mui/material';
 import ElumleLogo from '../../assets/Logo';
 import { Link as RouterLink } from 'react-router-dom';
 import Navbar from '../MainPage/Navbar';
+import { Password } from '@mui/icons-material';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/loginSlice';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -28,6 +31,19 @@ const Card = styled(MuiCard)(({ theme }) => ({
 }));
 
 const LoginPage = setLogin => {
+  const dispatch = useDispatch();
+  const [data, setData] = useState({
+    Email: '',
+    Password: '',
+  });
+  const handleData = (key, value) => {
+    console.log(key, value);
+    setData({ ...data, [key]: value });
+  };
+  const handleLogin = () => {
+    console.log(data);
+    dispatch(login(data));
+  };
   return (
     <>
       <Grid sx={{ fontFamily: 'sans-serif' }}>
@@ -49,10 +65,20 @@ const LoginPage = setLogin => {
             Sign in
           </Typography>
           <FormControl>
-            <TextField id="standard-basic" label="Email or UserName" variant="standard" />
+            <TextField
+              id="standard-basic"
+              label="Email or UserName"
+              variant="standard"
+              onChange={e => handleData('Email', e.target.value)}
+            />
           </FormControl>
           <FormControl>
-            <TextField id="standard-basic" label="Password" variant="standard" />
+            <TextField
+              id="standard-basic"
+              label="Password"
+              variant="standard"
+              onChange={e => handleData('Password', e.target.value)}
+            />
           </FormControl>
           <Link
             component="button"
@@ -62,7 +88,7 @@ const LoginPage = setLogin => {
           >
             Forgot your password?
           </Link>
-          <Button type="submit" fullWidth variant="contained">
+          <Button type="submit" fullWidth variant="contained" onClick={handleLogin}>
             Sign in
           </Button>
           <Typography sx={{ textAlign: 'center', margin: '32px 0px' }}>
