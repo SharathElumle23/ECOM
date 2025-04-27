@@ -80,3 +80,25 @@ Browse Products: Explore a catalog of available products.
 Add to Cart: Add items to your shopping cart.
 Checkout: Complete your purchase.
 User Profile Management: Update your profile and view your order history.
+
+
+![image](https://github.com/user-attachments/assets/a4532f49-1a5f-47c7-b6e3-3034d5d85822)
+![image](https://github.com/user-attachments/assets/39d5ac90-4efc-4dad-886e-b842ac87cb76)
+![image](https://github.com/user-attachments/assets/f9b4f253-a04d-4557-9dbb-7fcef430d714)
+![image](https://github.com/user-attachments/assets/8215cf0c-b7c4-4998-9424-0bcf7264b66a)
+![image](https://github.com/user-attachments/assets/59cfb4b4-122a-4263-b013-6aa0760958a7)
+![image](https://github.com/user-attachments/assets/a8467c40-16ac-47e0-872a-9a165e9a6ccf)
+![image](https://github.com/user-attachments/assets/0b16d339-9312-4732-94df-4c6ca06809b8)
+![image](https://github.com/user-attachments/assets/3b39ec8e-a39b-4992-9784-3e3ac3ed6605)
+![image](https://github.com/user-attachments/assets/f0044b7a-c71f-4173-aaa1-e4080602e963)
+![image](https://github.com/user-attachments/assets/11c679fc-05d2-4f11-8bc8-7056a103bea6)
+
+
+
+
+
+
+
+
+
+
