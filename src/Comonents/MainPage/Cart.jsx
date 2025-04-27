@@ -16,10 +16,12 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Navbar from './Navbar';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart } from '../../redux/cartSlice';
+import { removeFromCart, loginFromCart } from '../../redux/cartSlice';
+import AddressBox from './addressBox';
 const CartSection = () => {
+  const [addressBox, setAddressBox] = useState(false);
   const fetchdata = useSelector(state => state.cart.cartItems);
-  const fetchLogin = useSelector(state => state.login);
+  const fetchLogin = useSelector(state => state.login.loginData);
   const [cartItems, setCartItems] = useState(fetchdata);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +37,6 @@ const CartSection = () => {
   };
   const getTotal = () =>
     cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
-
   return (
     <>
       <Navbar />
@@ -93,7 +94,12 @@ const CartSection = () => {
             <Box sx={{ textAlign: 'right' }}>
               <Typography variant="h6">Total: ${getTotal()}</Typography>
               {fetchLogin.isLoggedIn ? (
-                <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{ mt: 2 }}
+                  onClick={() => setAddressBox(true)}
+                >
                   Proceed to Checkout
                 </Button>
               ) : (
@@ -120,7 +126,10 @@ const CartSection = () => {
                     variant="contained"
                     color="primary"
                     sx={{ mt: 2 }}
-                    onClick={() => navigate('/login')}
+                    onClick={() => {
+                      dispatch(loginFromCart(true));
+                      navigate('/login');
+                    }}
                   >
                     Login
                   </Button>
@@ -130,6 +139,7 @@ const CartSection = () => {
           </>
         )}
       </Box>
+      <AddressBox setAddressBox={setAddressBox} addressBox={addressBox} />
     </>
   );
 };

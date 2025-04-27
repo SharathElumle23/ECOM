@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { Grid, Typography, FormControl, TextField, Link } from '@mui/material';
+import { Grid, Typography, FormControl, TextField, Link, Snackbar, Alert } from '@mui/material';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material';
 import ElumleLogo from '../../assets/Logo';
 import { Link as RouterLink } from 'react-router-dom';
 import Navbar from '../MainPage/Navbar';
 import { Password } from '@mui/icons-material';
-import { useDispatch } from 'react-redux';
-import { login } from '../../redux/loginSlice';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { loginData } from '../../redux/loginSlice';
+import { useNavigate } from 'react-router-dom';
+import { loginFromCart } from '../../redux/cartSlice';
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -30,8 +31,11 @@ const Card = styled(MuiCard)(({ theme }) => ({
   }),
 }));
 
-const LoginPage = setLogin => {
+const LoginPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const loginFrom = useSelector(state => state.cart.logingFromCart);
+  const [open, setOpen] = useState(false);
   const [data, setData] = useState({
     Email: '',
     Password: '',
@@ -41,8 +45,18 @@ const LoginPage = setLogin => {
     setData({ ...data, [key]: value });
   };
   const handleLogin = () => {
-    console.log(data);
-    dispatch(login(data));
+    console.log('loginFrom', loginFrom);
+    setOpen(true);
+    dispatch(loginData(data));
+    // eslint-disable-next-line no-undef
+    setTimeout(() => {
+      if (loginFrom) {
+        navigate('/cart');
+      } else {
+        navigate('/home');
+      }
+      dispatch(loginFromCart(false));
+    }, 2000);
   };
   return (
     <>
@@ -106,6 +120,18 @@ const LoginPage = setLogin => {
           </Typography>
         </Card>
       </Grid>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={() => {
+          setOpen(false);
+        }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={() => {}} severity="success" sx={{ width: '100%' }}>
+          Logged Successfully... Redirecting to {loginFrom ? 'Cart' : 'Home'} Page
+        </Alert>
+      </Snackbar>
     </>
   );
 };

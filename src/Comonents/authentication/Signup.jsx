@@ -31,6 +31,19 @@ const Signup = () => {
     <>
       <Grid sx={{ fontFamily: 'sans-serif' }}>
         <Navbar />
+        <br />
+        <marquee
+          style={{
+            fontSize: '16px',
+            color: '#ff0000',
+            fontWeight: 'bold',
+            backgroundColor: '#f8f8f8',
+            padding: '5px',
+          }}
+        >
+          Due to the backend not being integrated, you can sign in with any
+          credentials.(ex:admin/admin)
+        </marquee>
         <Card variant="outlined">
           <Typography component="h1" variant="h5" sx={{ marginBottom: 2 }}>
             <ElumleLogo />
@@ -62,18 +75,13 @@ const Signup = () => {
           <FormControl>
             <TextField id="standard-basic" label="Confirm Password" variant="standard" />
           </FormControl>
-          <Button type="submit" fullWidth variant="contained">
+          <Button type="submit" fullWidth variant="contained" disabled>
             Sign Up
           </Button>
           <Typography sx={{ textAlign: 'center', margin: '32px 0px' }}>
             Do You have an account?{' '}
             <span>
-              <Link
-                component={RouterLink}
-                to="/signin"
-                variant="body2"
-                sx={{ alignSelf: 'center' }}
-              >
+              <Link component={RouterLink} to="/login" variant="body2" sx={{ alignSelf: 'center' }}>
                 Sign in
               </Link>
             </span>
