@@ -36,7 +36,7 @@ const CartSection = () => {
     setCartItems(prev => prev.filter(item => item.id !== id));
   };
   const getTotal = () =>
-    cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
+    cartItems.reduce((acc, item) => acc + item.price * 83 * item.quantity, 0).toFixed(2);
   return (
     <>
       <Navbar />
@@ -68,20 +68,25 @@ const CartSection = () => {
                     <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
                       {item.title}
                     </Typography>
-                    <Typography color="text.secondary">${item.price}</Typography>
+                    <Typography color="text.secondary">₹ {item.price * 83} /-</Typography>
                   </Grid>
-                  <Grid item xs={2}>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                      <IconButton onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}>
-                        <RemoveIcon />
-                      </IconButton>
-                      <Typography>{item.quantity}</Typography>
-                      <IconButton onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}>
-                        <AddIcon />
-                      </IconButton>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={2}>
+                  <Grid
+                    item
+                    xs={2}
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-end',
+                      ml: 'auto',
+                    }}
+                  >
+                    <IconButton onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}>
+                      <RemoveIcon />
+                    </IconButton>
+                    <Typography>{item.quantity}</Typography>
+                    <IconButton onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}>
+                      <AddIcon />
+                    </IconButton>
                     <IconButton color="error" onClick={() => handleRemove(item.id)}>
                       <DeleteIcon />
                     </IconButton>
@@ -92,7 +97,7 @@ const CartSection = () => {
 
             <Divider sx={{ my: 2 }} />
             <Box sx={{ textAlign: 'right' }}>
-              <Typography variant="h6">Total: ${getTotal()}</Typography>
+              <Typography variant="h6">Total: ₹{getTotal()}</Typography>
               {fetchLogin.isLoggedIn ? (
                 <Button
                   variant="contained"
