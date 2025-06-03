@@ -15,6 +15,7 @@ import ElumleLogo from '../../assets/Logo';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { logout } from '../../redux/loginSlice';
+
 const Navbar = () => {
   const fetchdata = useSelector(state => state.cart.cartItems);
   const fetchCount = fetchdata.length;
@@ -24,7 +25,7 @@ const Navbar = () => {
 
   const navData = [
     { name: 'Home', to: '/' },
-    { name: 'Category', to: '/category', disabled: true },
+    { name: 'Category', to: '/category' },
     { name: fetchCount > 0 ? `Cart (${fetchCount})` : 'Cart', to: '/cart' },
     fetchLogin?.isLoggedIn
       ? { name: 'Logout', onClick: () => setOpen(true) }

@@ -5,6 +5,7 @@ import LoginPage from './Comonents/authentication/LoginPage';
 import Signup from './Comonents/authentication/Signup';
 import LandingPage from './Comonents/MainPage/LandingPage';
 import CartSection from './Comonents/MainPage/Cart';
+import Category from './Comonents/MainPage/Category/Category';
 import { useSelector } from 'react-redux';
 function App() {
   const fetchLogin = useSelector(state => state.login.loginData);
@@ -17,10 +18,12 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/cart" element={<CartSection />} />
+            <Route path="/category" element={<Category />} />
             <Route path="*" element={<LandingPage />} />
           </>
         ) : (
           <>
+            <Route path="/category" element={<Category />} />
             <Route path="/cart" element={<CartSection />} />
             <Route path="*" element={<LandingPage />} />
           </>

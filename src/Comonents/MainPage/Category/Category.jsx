@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, CSSProperties } from 'react';
+import { Header } from './header';
+import Navbar from '../Navbar';
+import { getStarRating } from '../../../utils/star';
 import {
   Container,
   Typography,
@@ -8,51 +11,27 @@ import {
   CardMedia,
   CardContent,
   Box,
+  Skeleton,
 } from '@mui/material';
-import { fetchProductData } from '../../apis/fetch';
-import Navbar from './Navbar';
-import HeroSlider from './HeroSection';
 import { useSelector, useDispatch } from 'react-redux';
-import AddToCartControls from './AddtoCart';
-import { getStarRating } from '../../utils/star';
+import AddToCartControls from '.././AddtoCart';
 import { RingLoader } from 'react-spinners';
-import { setProducts } from '../../redux/categorySlice';
 
-const LandingPage = () => {
-  const dispatch = useDispatch();
-
-  const handleAPIData = async () => {
-    const data = await fetchProductData();
-    dispatch(setProducts(data));
+const Category = () => {
+  const override = {
+    display: 'block',
+    margin: '0 auto',
+    borderColor: 'red',
   };
-  useEffect(() => {
-    handleAPIData();
-  }, []);
   const products = useSelector(state => state.category.products);
-
-  const fetchdata = useSelector(state => state.cart.cartItems);
   return (
-    <>
+    <Grid>
       <Navbar />
-      <HeroSlider />
-      <Container maxWidth="lg" style={{ marginTop: '2rem' }}>
-        <Grid container spacing={4} alignItems="center">
-          <Grid item xs={12} md={6}>
-            <Typography variant="h3" gutterBottom>
-              Welcome to Our E-Commerce Store
-            </Typography>
-            <Typography variant="h6" color="textSecondary" paragraph>
-              Discover the best products at unbeatable prices. Shop now and enjoy exclusive deals!
-            </Typography>
-          </Grid>
-        </Grid>
 
-        {/* Featured Products Section */}
-        <Typography variant="h4" gutterBottom style={{ marginTop: '3rem' }}>
-          Featured Products
-        </Typography>
+      <Grid>
+        <Header />
         {products.length > 0 ? (
-          <Grid container spacing={4}>
+          <Grid container spacing={4} ml={4}>
             {products.map(product => (
               <Grid item xs={12} sm={6} md={3} key={product.id}>
                 <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -105,23 +84,18 @@ const LandingPage = () => {
             ))}
           </Grid>
         ) : (
-          <>
-            <Grid sx={{ display: 'flex', justifyContent: 'center' }} container mt={16}>
-              <RingLoader
-                loading={true}
-                size={100}
-                aria-label="Loading Spinner"
-                data-testid="loader"
-              />
-            </Grid>
-            <Grid sx={{ display: 'flex', justifyContent: 'center' }} m={4}>
-              <span style={{ background: '#00000047' }}>Loading Data...</span>
-            </Grid>
-          </>
+          <Grid sx={{ display: 'flex', justifyContent: 'center' }} container mt={8}>
+            <RingLoader
+              loading={true}
+              size={100}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </Grid>
         )}
-      </Container>
-    </>
+      </Grid>
+    </Grid>
   );
 };
 
-export default LandingPage;
+export default Category;
